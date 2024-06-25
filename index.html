@@ -1,2 +1,2629 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- updated by Yi Yuan -->
 
-test
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.66.0" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <!-- 引入jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- 引入Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+  <link rel="stylesheet" href="../css/custom.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="alternate" href="index.xml" type="application/rss+xml" title="Speech Research">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <style>
+    body {
+      font-size: 20px;
+      /* 设置默认字体大小 */
+
+    }
+
+    thead {
+      border-top: 1px solid #ccc;
+    }
+
+    .table td {
+      border: solid 3px #ccc;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      /* width:120%; */
+      margin: 0 auto;
+    }
+
+    /* table {
+      overflow-x: auto;
+    } */
+
+    .audio-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none
+    }
+
+    video {
+      width: 640px;
+      /* 设置视频宽度 */
+      height: 360px;
+      /* 设置视频高度 */
+    }
+
+    @media(min-width:1200px) {
+      .table-container {
+        overflow-x: auto;
+        width: 100%;
+        margin: 0 auto;
+
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      /* 在手机屏幕上应用以下样式 */
+      body {
+        font-size: 14px;
+        /* 缩小字体大小 */
+      }
+
+      h1 {
+        font-size: 22px;
+        /* 缩小标题字体大小 */
+      }
+
+      h2 {
+        font-size: 18px;
+        /* 缩小标题字体大小 */
+      }
+
+      nav ul li {
+        display: block;
+        /* 列表项显示为块级元素，方便手机点击 */
+      }
+
+      .video-container {
+        padding-bottom: 75%;
+        /* 4:3宽高比，调整此值适配其他比例的视频 */
+      }
+
+      video {
+        width: 400px;
+        /* 设置视频宽度 */
+        /* height: 360px; 设置视频高度 */
+      }
+    }
+
+    table tr td:nth-child(3),
+    table tr th:nth-child(3) {
+      background-color: #ADD8E6;
+    }
+
+    table tr td:nth-child(5),
+    table tr th:nth-child(5) {
+      background-color: #ADD8E6;
+    }
+
+    table tr td:nth-child(4),
+    table tr th:nth-child(4) {
+      background-color: #b6d9a4;
+    }
+
+    table tr td:nth-child(6),
+    table tr th:nth-child(6) {
+      background-color: #bf77de;
+    }
+
+    table tr td:nth-child(8),
+    table tr th:nth-child(8) {
+      background-color: #bf77de;
+    }
+
+    table tr td:nth-child(10),
+    table tr th:nth-child(10) {
+      background-color: #bf77de;
+    }
+
+    table tr td:nth-child(7),
+    table tr th:nth-child(7) {
+      background-color: #f36b2c;
+    }
+
+    table tr td:nth-child(9),
+    table tr th:nth-child(9) {
+      background-color: #f36b2c;
+    }
+
+    table tr td:nth-child(11),
+    table tr th:nth-child(11) {
+      background-color: #f36b2c;
+    }
+
+    table {
+      border: 1px solid black;
+      text-align: center;
+      /* Center-align text */
+      padding: 8px;
+      /* Add some padding for aesthetics */
+    }
+  </style>
+  <title>X-Codec: Unified Audio Tokenizer for Audio Language Model</title>
+</head>
+
+<body rightmargin="150" leftmargin="150" topmargin="100" bottommargin="100" line-height:160%>
+  <!-- <font size="5"> -->
+
+  <div class="container">
+
+    <header role="banner">
+
+    </header>
+    <main role="main">
+      <article itemscope itemtype="https://schema.org/BlogPosting">
+        <br></br>
+        <h1 itemprop="headline" align="center">
+          <font color="000093">X-Codec: Unified Audio Tokenizer for Audio Language Model
+          </font>
+        </h1>
+        <br></br>
+    
+        <!-- <p style="line-height:1" align="center"><b>
+            <font color="061E61"><a href="https://github.com/zhenye234">Zhen Ye</a><sup> &#x1F4EE;,1</sup>,
+              <a href="https://scholar.google.com/citations?user=e0h0ae8AAAAJ&hl=en&oi=ao">Peiwen Sun</a><sup>2</sup>,
+              <a href="https://scholar.google.com/citations?user=vFk3_VYAAAAJ&hl=en">Jiahe Lei</a><sup>1</sup>,
+              <a href="https://scholar.google.com/citations?user=9cvRM5wAAAAJ&hl=en&oi=ao">Hongzhan Lin</a><sup>2</sup>,
+              <a href="http://personal.ee.surrey.ac.uk/Personal/W.Wang//">Xu Tan</a><sup>1</sup>,
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Zheqi DAI</a><sup>1</sup>,
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Qiuqiang Kong</a><sup>1</sup>
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Jianyi Chen</a><sup>1</sup>
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Yiwen Lu</a><sup>1</sup>
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Jiahao Pan</a><sup>1</sup>
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Qifeng Liu</a><sup>1</sup>
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Yike Guo</a><sup>1</sup>
+              <a href="https://www.surrey.ac.uk/people/mark-plumbley">Wei Xue</a><sup>1</sup>
+
+            </font>
+          </b></p>
+        <p style="line-height:0.6" align="center">
+          <font color="061E61"><sup>1</sup>CVSSP, University of Surrey, Guildford, UK</font>
+        </p>
+        <p style="line-height:0.6" align="center">
+          <font color="061E61"> <sup>2</sup>Department of Computer Science and Engineering, Shanghai Jiao Tong
+            University, China</font>
+        </p>
+        <p style="line-height:0.6" align="center">
+            <font color="061E61"> <sup>3</sup>The Chinese University of Hong Kong</font>
+          </p>
+        <p style="line-height:1" align="center">
+          <font color="061E61"><sup>&#x1F4EE;</sup>Corresponding author</font>
+        </p>
+        <section itemprop="entry-text">
+          <div class="container">
+            <center>
+              <p>
+                <a href="https://arxiv.org/abs/2405.00233">Paper on ArXiv</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://github.com/zhenye234/xcodec">Code on GitHub</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/llm-stacking" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      🤗
+                    </span>
+                    <span>HuggingFace Demo</span>
+                    </a>
+                </span>
+                <a href="https://huggingface.co/spaces/haoheliu/audioldm2-text2audio-text2music">
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/llm-stacking" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      🤗
+                    </span>
+                    <span>Models</span>
+                    </a>
+                </span>
+
+            </center>
+          </div> -->
+
+
+
+          <h2 id="abstract">
+            <font color="000093">Abstract</font>
+          </h2>
+          <p style="text-align: justify;">
+            <font color="061E61">
+              Audio tokenization is crucial for effective audio processing and traditionally di
+              vides into two primary categories: semantic and acoustic tokenization. Semantic
+              tokenizers such as HuBERT and Wav2Vec-BERT utilize clustering algorithms like
+              K-Means to transform features into discrete tokens. On the other hand, acoustic
+              tokenizers rely on structures like Residual Vector Quantizers (RVQ) and encoder-
+              decoder models to reconstruct audio waveforms. This traditional bifurcation
+              presents significant challenges, most notably the complexity introduced by the two-
+              stage audio generation process. In this process, semantic tokens are first converted
+              into acoustic tokens, which then generate the waveform. This multistage approach
+              is not only sub-optimal because of inconsistent learning targets for two stages but
+              also increases the potential for error accumulation. In this work, we propose a
+              unified tokenizer, X-Codec, that integrates both semantic and acoustic features into
+              a single framework. The proposed X-Codec simplifies the audio generation process
+              by allowing for a decoder-only GPT-style pipeline. By merging the advantages of
+              both token types, as demonstrated by experiments, the proposed tokenizer shows
+              strong capablities in both semantic understanding and audio reconstruction quality,
+              and also unlocks the potential of GPT-style autoregressive methods in the audio
+              domain, previously hindered by previous audio codec focused solely on acoustic
+              features.
+            </font>
+          </p>
+
+          <h2 id="note">
+            <font color="000093">Contribution</font>
+          </h2>
+          <li>
+            <font color="061E61"> We introduce the X-Codec, a unified audio tokenization approach that elegantly integrates semantic and acoustic information. </font>
+          </li>
+          <li>
+            <font color="061E61"> We explore the application potentials of X-Codec in GPT-style audio generation, showing promising generation results.
+            </font>
+          </li>
+          <li>
+            <font color="061E61"> We present empirical studies that demonstrate X-Codec's superior capabilities in semantic preservation and audio quality.
+            </font>
+          </li>
+
+          <!-- <li>
+              <font color="061E61"> AudioLDM enables zero-shot text-guided audio style-transfer, inpainting, and
+                super-resolution.</font>
+            </li> -->
+
+          <br></br>
+          <figure>
+            <p align="center"><img src="pipeline.png" width="98%" class="center" /></p>
+            <figcaption>
+              <p style="text-align: justify;">
+                <font color="061E61"><b>Figure 1:</b> The overview of the X-Codec architecture. 
+                  The model is designed to unify acoustic and semantic tokens using a universal structure comprising three components: 
+                  a semantic reconstruction network, 
+                  an acoustic reconstruction network, 
+                  and a Bottleneck Vector Quantizer (Bot-VQ)
+              </p>
+            </figcaption>
+          </figure>
+
+          <figure>
+            <p align="center"><img src="ARCH result.jpg" width="98%" class="center" /></p>
+            <figcaption>
+              <p style="text-align: justify;">
+                <font color="061E61"><b>Figure 2:</b> Performance of semantic representation on ARCH benchmark. It comprehensively
+                  evaluation the system ability of audio understanding.
+              </p>
+            </figcaption>
+          </figure>
+
+
+          <br></br>
+          <h2 id="section_3">
+            <font color="000093">Waveform Reconstruction</font>
+          </h2>
+          <p>
+            <font color="061E61"> We randomly selected 1000 samples from LibriTTS, MTT, and ESC-50 to represent the corresponding domains and calculated the differences between the original and reconstructed audio for each codec.
+            </font>
+          </p>
+          <p>
+            <font color="061E61"> We show the evaluation metrics score using ViSQOL ↑ , Mel distance ↓ , and
+              STFT distance  ↓.
+            </font>
+          </p>
+
+          <!-- <h3>General Audio (Audioset)</h3> -->
+          <!-- <p><b>
+                <font color="061E61">Short Samples:</font>
+              </b></p> -->
+          <br>
+
+          <br>
+          <h3>Samples from LibriTTS (Speech)</h3>
+          <p>
+            <font color="061E61">↔️ Scroll horizontally to view the full table.
+            </font>
+          </p>
+
+          <div class="table-container">
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <th scope="col" width="180px" style="background-color: #FFD700;">
+                    <font color="061E61">ID</font>
+                  </th>
+                  <th scope="col" width="325px" style="background-color: #FFD700;">
+                    <font color="061E61">Original</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">X-Codec(Ours)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">SpeechTokenizer</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec-uniaudio</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec(16khz)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">DAC(16khz)</font>
+                  </th>
+
+
+                  <th scope="col" width="325px">
+                    <font color="061E61">X-Codec(Ours)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">SpeechTokenizer</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec-uniaudio</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec(16khz)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">DAC(16khz)</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Quantizer num</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">12</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">12</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Bit rate</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.0 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.0 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.5 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.41 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.43 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.78 kbps</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.71 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.47 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.35 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.35 kbps</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">ViSQOL↑</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.34</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.42</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.63</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.38</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.36</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.23</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.39</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.12</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.26</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.17</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">WER (%)↓</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.7</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.6</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.4</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">11.6</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">28.2</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">19.6</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">19.6</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Accuracy (%)↑</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">37.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">40.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">35.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">43.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">52.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">43.0</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">50.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">41.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">46.1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">46.1</font>
+                  </th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000001_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000001_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000001_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000001_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000001_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000002_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000002_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000002_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000002_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000002_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000003_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000003_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000003_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000003_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000003_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>4</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000003_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000003_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000003_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000003_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000003_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>5</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000003_000002.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000003_000002.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000003_000002.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000003_000002.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000003_000002.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>6</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000003_000003.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000003_000003.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000003_000003.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000003_000003.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000003_000003.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>7</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000004_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000004_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000004_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000004_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000004_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>8</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000004_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000004_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000004_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000004_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000004_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>9</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000005_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000005_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000005_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000005_000000.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000005_000000.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>10</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/speech/3005_163389_000005_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/speech/3005_163389_000005_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/speech/3005_163389_000005_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/speech/3005_163389_000005_000001.wav" autoplay />Your browser does
+                          not support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/speech/3005_163389_000005_000001.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <h3>Samples from MUSDB18 (Music)</h3>
+          <p>
+            <font color="061E61">↔️ Scroll horizontally to view the full table.
+            </font>
+          </p>
+
+          <div class="table-container">
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <th scope="col" width="180px" style="background-color: #FFD700;">
+                    <font color="061E61">ID</font>
+                  </th>
+                  <th scope="col" width="325px" style="background-color: #FFD700;">
+                    <font color="061E61">Original</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">X-Codec(Ours)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">SpeechTokenizer</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec-uniaudio</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec(16khz)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">DAC(16khz)</font>
+                  </th>
+
+
+                  <th scope="col" width="325px">
+                    <font color="061E61">X-Codec(Ours)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">SpeechTokenizer</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec-uniaudio</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec(16khz)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">DAC(16khz)</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Quantizer num</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">12</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">12</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Bit rate</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.0 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.0 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.5 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.41 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.43 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.78 kbps</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.71 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.47 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.35 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.35 kbps</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">ViSQOL↑</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.97</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.23</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.09</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.23</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.23</font>
+                  </th>
+                  
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.37</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.10</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.47</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.04</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.55</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">WER (%)↓</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.7</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.6</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.4</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">11.6</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">28.2</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">19.6</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">19.6</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Accuracy (%)↑</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">37.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">40.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">35.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">43.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">52.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">43.0</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">50.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">41.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">46.1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">46.1</font>
+                  </th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0346__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0346__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0346__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0346__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0346__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0346__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0346__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0346__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0346__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0346__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0346__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0346__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0346__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0346__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0346__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>4</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0347__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0347__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0347__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0347__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0347__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>5</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0347__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0347__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0347__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0347__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0347__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>6</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0347__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0347__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0347__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0347__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0347__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>7</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0348__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0348__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0348__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0348__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0348__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>8</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0348__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0348__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0348__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0348__2.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0348__2.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>9</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0348__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0348__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0348__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0348__3.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0348__3.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>10</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/music/[flu][cla]0349__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/music/[flu][cla]0349__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/music/[flu][cla]0349__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/music/[flu][cla]0349__1.wav" autoplay />Your browser does not
+                          support the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/music/[flu][cla]0349__1.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+
+          <h3>Samples from ESC-50 (Audio events)</h3>
+          <p>
+            <font color="061E61">↔️ Scroll horizontally to view the full table.
+            </font>
+          </p>
+          <div class="table-container">
+            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              
+
+              <thead>
+                <tr>
+                  <th scope="col" width="180px" style="background-color: #FFD700;">
+                    <font color="061E61">ID</font>
+                  </th>
+                  <th scope="col" width="325px" style="background-color: #FFD700;">
+                    <font color="061E61">Original</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">X-Codec(Ours)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">SpeechTokenizer</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec-uniaudio</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec(16khz)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">DAC(16khz)</font>
+                  </th>
+
+
+                  <th scope="col" width="325px">
+                    <font color="061E61">X-Codec(Ours)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">SpeechTokenizer</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec-uniaudio</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">Encodec(16khz)</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">DAC(16khz)</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Quantizer num</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">12</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">8</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">12</font>
+                  </th>
+                </tr>
+                
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Bit rate</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.0 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">2.0 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.5 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.41 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">1.43 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.78 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.71 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.47 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.35 kbps</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">0.35 kbps</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">ViSQOL↑</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.08</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.64</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.17</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.10</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.37</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.41</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.33</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.47</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.41</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">4.53</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">WER (%)↓</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.7</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.6</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">3.4</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">11.6</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">5.1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">28.2</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">19.6</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">19.6</font>
+                  </th>
+                </tr>
+
+                <tr>
+                  <th scope="col" width="180px">
+                    <font color="061E61">Accuracy (%)↑</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">/</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">37.0</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">40.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">35.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">43.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">52.5</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">43.0</font>
+                  </th>
+  
+                  <th scope="col" width="325px">
+                    <font color="061E61">50.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">41.3</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">46.1</font>
+                  </th>
+                  <th scope="col" width="325px">
+                    <font color="061E61">46.1</font>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-137-A-32.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-137-A-32.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-137-A-32.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-137-A-32.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-137-A-32.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-1791-A-26.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-1791-A-26.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-1791-A-26.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-1791-A-26.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-1791-A-26.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>3</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-4211-A-12.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-4211-A-12.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-4211-A-12.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-4211-A-12.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-4211-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>4</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-5996-A-6.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-5996-A-6.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-5996-A-6.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-5996-A-6.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-5996-A-6.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>5</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-7057-A-12.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-7057-A-12.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-7057-A-12.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-7057-A-12.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-7057-A-12.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>6</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-7456-A-13.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-7456-A-13.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-7456-A-13.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-7456-A-13.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-7456-A-13.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>7</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-7973-A-7.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-7973-A-7.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-7973-A-7.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-7973-A-7.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-7973-A-7.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>8</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-7974-A-49.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-7974-A-49.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-7974-A-49.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-7974-A-49.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-7974-A-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>9</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-7974-B-49.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-7974-B-49.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-7974-B-49.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-7974-B-49.wav" autoplay />Your browser does not support
+                          the audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-7974-B-49.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+              <tr>
+                  <td>10</td>
+                  <td><audio controls="controls">
+                          <source src="audio/groundtruth/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=1/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=1/events/1-977-A-39.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=1/events/1-977-A-39.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=1/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=1/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Xcodec_nq=12/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/SpeachTokenzier_nq=8/events/1-977-A-39.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_uniaudio_nq=8/events/1-977-A-39.wav" autoplay />Your browser does not support the
+                          audio element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/Encodec_nq=8/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+                  <td><audio controls="controls">
+                          <source src="audio/DAC_16k_nq=12/events/1-977-A-39.wav" autoplay />Your browser does not support the audio
+                          element.
+                      </audio></td>
+              </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <br>
+
+
+          <p>
+            <font color="061E61">For more audio samples, please refer to the <a
+                href="https://github.com/haoheliu/SemantiCodec">github page repo</a>.
+            </font>
+          </p>
+  </div>
+  </div>
+  </div>
+  <br></br>
+
+
+  <!-- <table label="more_demos" class="table" align="center" style="table-layout: fixed;word-break:break-word">
+              <thead>
+                <tr>
+                  <th scope="col" width="33%">
+                    <font color="061E61">Label to sound generation</font>
+                  </th>
+                  <th scope="col" width="33%">
+                    <font color="061E61">Generate music with: "A music is made by []".</font>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+
+                    <video width="500" controls>
+                      <source src="Sound Effects.mp4" type="video/mp4">
+                      Your browser does not support HTML video.
+                    </video>
+
+                  </td>
+                  <td>
+                    <video width="500" controls>
+                      <source src="music.mp4" type="video/mp4">
+                      Your browser does not support HTML video.
+                    </video>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
+  <hr>
+
+  </section>
+  </article>
+  </main>
+
+  </div>
+
+
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-139981676-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+         HTML: ["input/TeX","output/HTML-CSS"],
+         TeX: {
+                Macros: {
+                         bm: ["\\boldsymbol{#1}", 1],
+                         argmax: ["\\mathop{\\rm arg\\,max}\\limits"],
+                         argmin: ["\\mathop{\\rm arg\\,min}\\limits"]},
+                extensions: ["AMSmath.js","AMSsymbols.js"],
+                equationNumbers: { autoNumber: "AMS" } },
+         extensions: ["tex2jax.js"],
+         jax: ["input/TeX","output/HTML-CSS"],
+         tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true },
+         "HTML-CSS": { availableFonts: ["TeX"],
+                       linebreaks: { automatic: true } }
+     });
+ </script>
+
+  <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       }
+     });
+ </script>
+
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
