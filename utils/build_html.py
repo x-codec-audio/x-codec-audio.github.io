@@ -27,6 +27,8 @@ speech_filelist = [
     "3005_163389_000005_000001.wav"
 ]
 
+speech_filelist = os.listdir("../audio/groundtruth/speech")
+
 music_filelist = [
     '[flu][cla]0346__1.wav',
     '[flu][cla]0346__2.wav', 
@@ -53,15 +55,16 @@ events_filelist = [
     '1-977-A-39.wav'
 ]
 
-# count = 0
-# for file in speech_filelist:
-#     count += 1
-#     html_string += "<tr>"
-#     html_string += f'<td>{count}</td>'
-#     for model in models:
-#         html_string += f'<td><audio controls="controls"><source src="audio/{model}/speech/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
-#     html_string += "</tr>"
-# print(html_string)
+
+count = 0
+for file in speech_filelist:
+    count += 1
+    html_string += "<tr>"
+    html_string += f'<td>{count}</td>'
+    for model in models:
+        html_string += f'<td><audio controls="controls"><source src="audio/{model}/speech/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
+    html_string += "</tr>"
+print(html_string)
 
 # count = 0
 # for file in music_filelist:
@@ -73,12 +76,12 @@ events_filelist = [
 #     html_string += "</tr>"
 # print(html_string)
 
-count = 0
-for file in events_filelist:
-    count += 1
-    html_string += "<tr>"
-    html_string += f'<td>{count}</td>'
-    for model in models:
-        html_string += f'<td><audio controls="controls"><source src="audio/{model}/events/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
-    html_string += "</tr>"
-print(html_string)
+# count = 0
+# for file in events_filelist:
+#     count += 1
+#     html_string += "<tr>"
+#     html_string += f'<td>{count}</td>'
+#     for model in models:
+#         html_string += f'<td><audio controls="controls"><source src="audio/{model}/events/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
+#     html_string += "</tr>"
+# print(html_string)
