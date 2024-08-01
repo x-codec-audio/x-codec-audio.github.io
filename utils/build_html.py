@@ -55,16 +55,39 @@ events_filelist = [
     '1-977-A-39.wav'
 ]
 
+TTS_filelist = [
+    "7.wav",
+    "66.wav",
+    "90.wav",
+    "100.wav",
+    "152.wav",
+    "170.wav",
+    "665.wav",
+    "918.wav",
+    "1000.wav",
+    "1115.wav",
+]
 
+TTS_models = ["prompt","xcodec_nq=1","speech_baseline_nq=1","encodec_nq=1","speechtokenizer_nq=1","dac_nq=1","xcodec_nq=8","speech_baseline_nq=8","encodec_nq=8","speechtokenizer_nq=8","dac_nq=8"]
 count = 0
-for file in speech_filelist:
+for file in TTS_filelist:
     count += 1
     html_string += "<tr>"
     html_string += f'<td>{count}</td>'
-    for model in models:
-        html_string += f'<td><audio controls="controls"><source src="audio/{model}/speech/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
+    for model in TTS_models:
+        html_string += f'<td><audio controls="controls"><source src="audio/TTS/{model}/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
     html_string += "</tr>"
 print(html_string)
+
+# count = 0
+# for file in speech_filelist:
+#     count += 1
+#     html_string += "<tr>"
+#     html_string += f'<td>{count}</td>'
+#     for model in models:
+#         html_string += f'<td><audio controls="controls"><source src="audio/{model}/speech/{file}" autoplay />Your browser does not support the audio element.</audio></td>'
+#     html_string += "</tr>"
+# print(html_string)
 
 # count = 0
 # for file in music_filelist:
