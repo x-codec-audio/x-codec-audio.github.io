@@ -108,17 +108,7 @@
       }
     }
 
-    table tr td:nth-child(3),
-    table tr th:nth-child(3) {
-      background-color: #f36b2c;
-    }
-
-    table tr td:nth-child(8),
-    table tr th:nth-child(8) {
-      background-color: #f36b2c;
-    }
-
-
+ 
     table {
       border: 1px solid black;
       text-align: center;
@@ -228,6 +218,523 @@
             </center>
           </div> -->
 
+        </div>
+        <br>
+
+
+        <!-- <p>
+          <font color="061E61">For more audio samples, please refer to the <a
+              href="https://github.com/zhenye234/xcodec">github page repo</a>.
+          </font>
+        </p> -->
+
+        <br></br>
+        <h2 id="section_3">
+          <font color="000093">Rebuttal:Text-to-Speech</font>
+        </h2>
+        <p>
+          <font color="061E61"> We used the Libri-light dataset as the training set and extracted each codec to get audio tokens for training a VALLE model. 
+          </font>
+        </p>
+        <p>
+          <font color="061E61"> Below are the inference results of AR stage (1-token) and AR+NAR stage (8-token).
+          </font>
+        </p>
+
+        <p>
+          <font color="061E61">↔️ Scroll horizontally to view the full table.
+          </font>
+        </p>
+        <div class="table-container">
+          <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
+            
+
+            <thead>
+              <tr>
+                <th scope="col" width="500px" >
+                  <font color="061E61">Text</font>
+                </th>
+                <th scope="col" width="325px" >
+                  <font color="061E61">Prompt(3s)</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">X-Codec(Ours)</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">X-Codec(Ours)</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">Speech Baseline</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">Speech Baseline</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">Encodec(16khz)</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">Encodec(16khz)</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">SpeechTokenizer</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">SpeechTokenizer</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">DAC(16khz)</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">DAC(16khz)</font>
+                </th>
+
+
+              <tr>
+                <th scope="col" width="180px">
+                  <font color="061E61">Mode</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">/</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR+NAR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR+NAR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR+NAR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR+NAR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR</font>
+                </th>
+                <th scope="col" width="325px">
+                  <font color="061E61">AR+NAR</font>
+                </th>
+              </tr>
+            
+
+            <tbody>
+              
+              <tr>
+                <td id="valle-font">You must look at him in the face, fight him, conquer him, with what scathe you may. You need not think to keep out of the way of him.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/7.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/7.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/7.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/7.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/7.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">You'll easily judge why when you hear, because the thing had been such a scare, he continued to fix me.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/66.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/66.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/66.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/66.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/66.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">One day when the boy was sent by his grandfather with a message to a relation, he passed along a street in which there was a great concourse of horsemen.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/90.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/90.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/90.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/90.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/90.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">You hear what Sir FERDINANDO Brown has said, replied Captain Battleax.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/100.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/100.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/100.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/100.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/100.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">It has occupied Mother a long time to find at the shops the exact shade for her new bonnet.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/152.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/152.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/152.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/152.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/152.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">This was a formidable array of advantages. Slavery was playing with loaded dice.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/170.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/170.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/170.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/170.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/170.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">In strict accuracy, nothing should be included under the head of conspicuous waste, but such expenditure as is incurred on the ground of an invidious pecuniary comparison.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/665.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/665.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/665.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/665.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/665.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">The music came nearer and he recalled the words. The words of Shelley's fragment upon the moon wandering companionless, pale for weariness.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/918.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/918.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/918.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/918.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/918.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">I must come another day and see your husband. I want to have a consultation with him about horses.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/1000.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/1000.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/1000.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/1000.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/1000.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+            <tr>
+                <td id="valle-font">She pushed him toward the big chair by the fire and sat down on a stool at the opposite side of the hearth. Her knees drawn up to her chin, laughing like a happy little girl.</td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/prompt/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=1/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/xcodec_nq=8/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=1/1115.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speech_baseline_nq=8/1115.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=1/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/encodec_nq=8/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=1/1115.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/speechtokenizer_nq=8/1115.wav" autoplay />Your browser does not support the audio
+                        element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=1/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+                <td><audio controls="controls">
+                        <source src="audio/TTS/dac_nq=8/1115.wav" autoplay />Your browser does not support the audio element.
+                    </audio></td>
+            </tr>
+
+            </tbody>
+          </table>
+        </div>
 
 
           <h2 id="abstract">
@@ -333,10 +840,10 @@
             <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
               <thead>
                 <tr>
-                  <th scope="col" width="180px" style="background-color: #FFD700;">
+                  <th scope="col" width="180px" >
                     <font color="061E61">ID</font>
                   </th>
-                  <th scope="col" width="325px" style="background-color: #FFD700;">
+                  <th scope="col" width="325px" >
                     <font color="061E61">Original</font>
                   </th>
                   <th scope="col" width="325px">
@@ -1059,10 +1566,10 @@
             <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
               <thead>
                 <tr>
-                  <th scope="col" width="180px" style="background-color: #FFD700;">
+                  <th scope="col" width="180px" >
                     <font color="061E61">ID</font>
                   </th>
-                  <th scope="col" width="325px" style="background-color: #FFD700;">
+                  <th scope="col" width="325px" >
                     <font color="061E61">Original</font>
                   </th>
                   <th scope="col" width="325px" >
@@ -1785,10 +2292,10 @@
 
               <thead>
                 <tr>
-                  <th scope="col" width="180px" style="background-color: #FFD700;">
+                  <th scope="col" width="180px" >
                     <font color="061E61">ID</font>
                   </th>
-                  <th scope="col" width="325px" style="background-color: #FFD700;">
+                  <th scope="col" width="325px" >
                     <font color="061E61">Original</font>
                   </th>
                   <th scope="col" width="325px">
@@ -2497,523 +3004,6 @@
               </tbody>
             </table>
 
-          </div>
-          <br>
-
-
-          <!-- <p>
-            <font color="061E61">For more audio samples, please refer to the <a
-                href="https://github.com/zhenye234/xcodec">github page repo</a>.
-            </font>
-          </p> -->
-
-          <br></br>
-          <h2 id="section_3">
-            <font color="000093">Rebuttal:Text-to-Speech</font>
-          </h2>
-          <p>
-            <font color="061E61"> We used the Libri-light dataset as the training set and extracted each codec to get audio tokens for training a VALLE model. 
-            </font>
-          </p>
-          <p>
-            <font color="061E61"> Below are the inference results of AR stage (1-token) and AR+NAR stage (8-token).
-            </font>
-          </p>
-
-          <p>
-            <font color="061E61">↔️ Scroll horizontally to view the full table.
-            </font>
-          </p>
-          <div class="table-container">
-            <table class="table" align="center" style="table-layout: fixed;word-break:break-word">
-              
-
-              <thead>
-                <tr>
-                  <th scope="col" width="500px" style="background-color: #FFD700;">
-                    <font color="061E61">Text</font>
-                  </th>
-                  <th scope="col" width="325px" style="background-color: #FFD700;">
-                    <font color="061E61">Prompt(3s)</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">X-Codec(Ours)</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">X-Codec(Ours)</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">Speech Baseline</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">Speech Baseline</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">Encodec(16khz)</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">Encodec(16khz)</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">SpeechTokenizer</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">SpeechTokenizer</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">DAC(16khz)</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">DAC(16khz)</font>
-                  </th>
-
-
-                <tr>
-                  <th scope="col" width="180px">
-                    <font color="061E61">Mode</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">/</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR+NAR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR+NAR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR+NAR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR+NAR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR</font>
-                  </th>
-                  <th scope="col" width="325px">
-                    <font color="061E61">AR+NAR</font>
-                  </th>
-                </tr>
-              
-
-              <tbody>
-                
-                <tr>
-                  <td id="valle-font">You must look at him in the face, fight him, conquer him, with what scathe you may. You need not think to keep out of the way of him.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/7.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/7.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/7.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/7.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/7.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">You'll easily judge why when you hear, because the thing had been such a scare, he continued to fix me.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/66.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/66.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/66.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/66.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/66.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">One day when the boy was sent by his grandfather with a message to a relation, he passed along a street in which there was a great concourse of horsemen.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/90.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/90.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/90.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/90.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/90.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">You hear what Sir FERDINANDO Brown has said, replied Captain Battleax.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/100.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/100.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/100.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/100.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/100.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">It has occupied Mother a long time to find at the shops the exact shade for her new bonnet.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/152.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/152.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/152.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/152.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/152.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">This was a formidable array of advantages. Slavery was playing with loaded dice.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/170.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/170.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/170.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/170.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/170.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">In strict accuracy, nothing should be included under the head of conspicuous waste, but such expenditure as is incurred on the ground of an invidious pecuniary comparison.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/665.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/665.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/665.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/665.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/665.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">The music came nearer and he recalled the words. The words of Shelley's fragment upon the moon wandering companionless, pale for weariness.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/918.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/918.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/918.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/918.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/918.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">I must come another day and see your husband. I want to have a consultation with him about horses.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/1000.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/1000.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/1000.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/1000.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/1000.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-              <tr>
-                  <td id="valle-font">She pushed him toward the big chair by the fire and sat down on a stool at the opposite side of the hearth. Her knees drawn up to her chin, laughing like a happy little girl.</td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/prompt/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=1/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/xcodec_nq=8/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=1/1115.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speech_baseline_nq=8/1115.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=1/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/encodec_nq=8/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=1/1115.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/speechtokenizer_nq=8/1115.wav" autoplay />Your browser does not support the audio
-                          element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=1/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-                  <td><audio controls="controls">
-                          <source src="audio/TTS/dac_nq=8/1115.wav" autoplay />Your browser does not support the audio element.
-                      </audio></td>
-              </tr>
-
-              </tbody>
-            </table>
-          </div>
 
 
           <br></br>
