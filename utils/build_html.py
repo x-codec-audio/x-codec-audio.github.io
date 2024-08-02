@@ -68,7 +68,49 @@ TTS_filelist = [
     "1115.wav",
 ]
 
-TTS_models = ["prompt","xcodec_nq=1","speech_baseline_nq=1","encodec_nq=1","speechtokenizer_nq=1","dac_nq=1","xcodec_nq=8","speech_baseline_nq=8","encodec_nq=8","speechtokenizer_nq=8","dac_nq=8"]
+TTS_models = [
+    # "prompt",
+    # "xcodec_nq=1",
+    # "speech_baseline_nq=1",
+    # "encodec_nq=1",
+    # "speechtokenizer_nq=1",
+    # "dac_nq=1",
+    # "xcodec_nq=8",
+    # "speech_baseline_nq=8",
+    # "encodec_nq=8",
+    # "speechtokenizer_nq=8",
+    # "dac_nq=8"
+
+    "prompt",
+    "xcodec_nq=1",
+    "xcodec_nq=8",
+
+    "speech_baseline_nq=1",
+    "speech_baseline_nq=8",
+
+    "encodec_nq=1",
+    "encodec_nq=8",
+    "speechtokenizer_nq=1",
+    "speechtokenizer_nq=8",
+    "dac_nq=1",
+    "dac_nq=8",
+
+]
+
+TEXT= [
+    "You must look at him in the face, fight him, conquer him, with what scathe you may. You need not think to keep out of the way of him.",
+    "You'll easily judge why when you hear, because the thing had been such a scare, he continued to fix me.",
+    "One day when the boy was sent by his grandfather with a message to a relation, he passed along a street in which there was a great concourse of horsemen.",
+    "You hear what Sir FERDINANDO Brown has said, replied Captain Battleax.",
+    "It has occupied Mother a long time to find at the shops the exact shade for her new bonnet.",
+    "This was a formidable array of advantages. Slavery was playing with loaded dice.",
+    "In strict accuracy, nothing should be included under the head of conspicuous waste, but such expenditure as is incurred on the ground of an invidious pecuniary comparison.",
+    "The music came nearer and he recalled the words. The words of Shelley's fragment upon the moon wandering companionless, pale for weariness.",
+    "I must come another day and see your husband. I want to have a consultation with him about horses.",
+    "She pushed him toward the big chair by the fire and sat down on a stool at the opposite side of the hearth. Her knees drawn up to her chin, laughing like a happy little girl.",
+
+]
+
 count = 0
 for file in TTS_filelist:
     count += 1
